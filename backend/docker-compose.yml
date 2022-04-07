@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  mysql:
+    image: "mysql:8.0"
+    container_name: algolio_firebase_db
+    restart: always
+    ports:
+      - "3306:3306"
+    env_file: ./.env
+    networks:
+      - app-network
+
+  # PhpMyAdmin
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin:latest
+    container_name: algolio_firebase_phpmyadmin
+    env_file: ./.env
+    environment:
+      UPLOAD_LIMIT: 100M
+    ports:
+      - '8001:80'
+    volumes:
+      - dbdata:/var/lib/mysql/
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local

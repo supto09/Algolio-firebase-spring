@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "rs.firebase.config.path",
+      "type": "java.lang.String",
+      "description": "File location for firebase credential."
+  }
+] }
